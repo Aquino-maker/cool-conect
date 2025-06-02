@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include('/laragon/www/Preparacao-para-ADE/back-end/conexao.php');
 
@@ -7,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['pass'] ?? '';
 
     if (empty($login) || empty($password)) {
-        echo json_encode(["status" => "erro", "mensagem" => "Preencha todos os campos."]);
+        $_SESSION['erro_login'] = "Preencha todos os campos.";
+        header('Location: /Preparacao-para-ADE/front-end/login.php');
         exit;
     }
 
@@ -19,19 +21,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($password, $user['pass'])) {
-        echo json_encode([
-            "status" => "sucesso",
-            "mensagem" => "Login bem-sucedido!",
-            "usuario" => [
-                "id" => $user['id_user'],
-                "nome" => $user['name_user'],
-                "username" => $user['username'],
-                "email" => $user['email']
-            ]
-        ]);
+        $_SESSION['usuario'] = [
+            'id_user' => $user['id_user'],
+            'name_user' => $user['name_user'],
+            'username' => $user['username'],
+            'email' => $user['email']
+        ];
+
+        header('Location: /Preparacao-para-ADE/front-end/pagina-inicial.php');
+        exit;
     } else {
-        echo json_encode(["status" => "erro", "mensagem" => "Usuário ou senha inválida."]);
+        $_SESSION['erro_login'] = "Usuário ou senha inválidos.";
+        header('Location: /Preparacao-para-ADE/front-end/login.php');
+        exit;
     }
 } else {
-    echo json_encode(["status" => "erro", "mensagem" => "Método inválido. Use POST."]);
+    $_SESSION['erro_login'] = "Acesso inválido.";
+    header('Location: /Preparacao-para-ADE/front-end/login.php');
+    exit;
 }

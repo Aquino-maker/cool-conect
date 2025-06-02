@@ -8,17 +8,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $pass = $_POST['pass'] ?? '';
 
-    // Abaixo verifica se já tem alguma pessoa utilizando o email ou username.
+    if (empty($name_user) || empty($username) || empty($email) || empty($pass)) {
+        echo "<script>alert('Preencha todos os campos.'); window.history.back();</script>";
+        exit;
+    }
+
     $check = $pdo->prepare("SELECT id_user FROM usuarios WHERE username = :username OR email = :email");
     $check->bindParam(':username', $username);
     $check->bindParam(':email', $email);
     $check->execute();
 
     if ($check->rowCount() > 0) {
-        echo json_encode(["status" => "erro", "mensagem" => "Usuário ou e-mail já cadastrados."]);
+        echo "<script>alert('Usuário ou e-mail já cadastrados.'); window.history.back();</script>";
         exit;
     }
-    $hashedPassword = password_hash($pass, PASSWORD_DEFAULT); // Serve para criptografar a senha
+
+    $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO usuarios (name_user, username, email, pass) VALUES (:name_user, :username, :email, :pass)";
     $stmt = $pdo->prepare($sql);
@@ -28,10 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':pass', $hashedPassword);
 
     if ($stmt->execute()) {
-        echo json_encode(["status" => "sucesso", "mensagem" => "Usuário cadastrado com sucesso!"]);
+        echo "<script>alert('Cadastro realizado com sucesso!'); window.location.href = '/Preparacao-para-ADE/front-end/login.php';</script>";
+        exit;
     } else {
-        echo json_encode(["status" => "erro", "mensagem" => "Erro ao cadastrar usuário."]);
+        echo "<script>alert('Erro ao cadastrar. Tente novamente.'); window.history.back();</script>";
+        exit;
     }
 } else {
-    echo json_encode(["status" => "erro", "mensagem" => "Método inválido. Use POST."]);
+    echo "<script>alert('Método inválido.'); window.history.back();</script>";
+    exit;
 }

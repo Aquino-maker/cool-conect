@@ -9,6 +9,13 @@ if (!isset($_SESSION['usuario'])) {
 
 $id_user = $_SESSION['usuario']['id_user'];
 $name_user = $_SESSION['usuario']['name_user'];
+
+// Buscar eventos com organizadores
+$stmt = $pdo->query("SELECT e.*, o.name_fugleman 
+                     FROM eventos e 
+                     JOIN organizadores o ON e.id_org = o.id_org 
+                     ORDER BY e.start_date_event DESC");
+$eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -43,35 +50,45 @@ $name_user = $_SESSION['usuario']['name_user'];
   </div>
 </header>
 
-  <main class="feed">
+<main class="feed">
+  <h2>Bem-vindo, <?= htmlspecialchars($name_user) ?>!</h2>
 
-    <h2>Bem-vindo, <?= htmlspecialchars($name_user) ?>!</h2>
-
-    <div class="card-evento">
-      <h2>Título do Evento</h2>
-      <p>Descrição breve do evento.</p>
+  <?php if (count($eventos) > 0): ?>
+    <?php foreach ($eventos as $evento): ?>
+      <div class="card-evento">
+        <h2><?= htmlspecialchars($evento['name_event']) ?></h2>
+        <p><strong>Organizador:</strong> <?= htmlspecialchars($evento['name_fugleman']) ?></p>
+        <p><strong>Descrição:</strong> <?= nl2br(htmlspecialchars($evento['description_event'])) ?></p>
+        <p><strong>Data:</strong> <?= date('d/m/Y H:i', strtotime($evento['start_date_event'])) ?></p>
+        <p><strong>Local:</strong> <?= htmlspecialchars($evento['event_location']) ?> - <?= htmlspecialchars($evento['city']) ?></p>
+        <p><strong>Tipo:</strong> <?= htmlspecialchars($evento['event_type']) ?></p>
+        <p><strong>Capacidade:</strong> <?= htmlspecialchars($evento['capacity']) ?> pessoas</p>
+        <p><strong>Preço:</strong> R$ <?= number_format($evento['price'], 2, ',', '.') ?></p>
 
         <form method="POST" action="../back-end/interagir.php">
-          <input type="hidden" name="id_event" value="1">
+          <input type="hidden" name="id_event" value="<?= $evento['id_event'] ?>">
           <input type="hidden" name="tipo" value="like">
           <button type="submit">👍 Curtir</button>
         </form>
 
         <form method="POST" action="../back-end/interagir.php">
-          <input type="hidden" name="id_event" value="1">
+          <input type="hidden" name="id_event" value="<?= $evento['id_event'] ?>">
           <input type="hidden" name="tipo" value="subscribe">
           <button type="submit">🔔 Inscrever-se</button>
         </form>
 
         <form method="POST" action="../back-end/interagir.php">
-          <input type="hidden" name="id_event" value="1">
+          <input type="hidden" name="id_event" value="<?= $evento['id_event'] ?>">
           <input type="hidden" name="tipo" value="favorite">
           <button type="submit">⭐ Favoritar</button>
         </form>
       </div>
-    </div>
+    <?php endforeach; ?>
+  <?php else: ?>
+    <p>Nenhum evento encontrado.</p>
+  <?php endif; ?>
 
-  </main>
+</main>
 
 </body>
 </html>

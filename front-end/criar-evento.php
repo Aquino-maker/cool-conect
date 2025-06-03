@@ -1,3 +1,13 @@
+<?php
+session_start();
+include('/laragon/www/Preparacao-para-ADE/back-end/conexao.php');
+
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -11,7 +21,6 @@
 <body>
     <h1>Criar Novo Evento</h1>
     <form action="/Preparacao-para-ADE/back-end/salvar-evento.php" method="POST">
-        <input type="hidden" name="id_org" value="<?= htmlspecialchars($id_org) ?>" />
 
         <label for="name_event">Título:</label><br />
         <input type="text" name="name_event" id="name_event" required /><br /><br />

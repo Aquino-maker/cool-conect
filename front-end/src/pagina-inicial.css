@@ -1,128 +1,212 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Noto Sans', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans", sans-serif;
 }
 
 body {
-    background-color: #1e1a2d;
-    color: #f1f1f1;
-    overflow-x: hidden;
-    min-height: 100vh;
+  background-color: #1e1a2d;
+  color: #f1f1f1;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 header {
-    width: 100%;
-    background-color: #2c2540;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  background-color: #2c2540;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 header h1 {
-    color: #00ff88;
-    font-size: 26px;
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(0, 255, 136, 0.4);
+  color: #00ff88;
+  font-size: 26px;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.4);
 }
 
 .perfil-icon {
-    font-size: 26px;
-    color: #00ff88;
-    background: none;
-    outline: none;
-    border: none;
-    transition: color 0.3s, transform 0.2s;
-    cursor: pointer;
+  font-size: 26px;
+  color: #00ff88;
+  background: none;
+  outline: none;
+  border: none;
+  transition: color 0.3s, transform 0.2s;
+  cursor: pointer;
 }
 
 .perfil-icon:hover {
-    color: #10ab63;
-    transform: scale(1.1);
+  color: #10ab63;
+  transform: scale(1.1);
 }
 
 .feed {
-    margin-top: 90px;
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
+  margin-top: 90px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
 }
 
 .card-evento {
-    background-color: #2f2841;
-    border-radius: 12px;
-    padding: 24px;
-    color: white;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #2f2841;
+  border-radius: 12px;
+  padding: 24px;
+  color: white;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card-evento:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
 .card-evento h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #00ff88;
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #00ff88;
 }
 
 .card-evento p {
-    font-size: 16px;
-    margin-bottom: 15px;
+  font-size: 16px;
+  margin-bottom: 15px;
 }
 
-.botoes-interacao {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+.interacoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.botoes-interacao button {
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: none;
-    background-color: #00ff88;
-    color: #1e1a2d;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+.interacoes form button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #00ff88;
+  color: #1e1a2d;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 14px;
 }
 
-.botoes-interacao button:hover {
-    background-color: #10ab63;
-    transform: scale(1.05);
+.interacoes form button:hover {
+  background-color: #10ab63;
+  transform: scale(1.05);
 }
 
 @media (max-width: 600px) {
-    header h1 {
-        font-size: 20px;
-    }
+  header h1 {
+    font-size: 20px;
+  }
 
-    .perfil-icon {
-        font-size: 22px;
-    }
+  .perfil-icon {
+    font-size: 22px;
+  }
+.card-evento {
+    padding: 18px;
+  }
 
-    .card-evento {
-        padding: 18px;
-    }
+  .card-evento h2 {
+    font-size: 20px;
+  }
 
-    .card-evento h2 {
-        font-size: 20px;
-    }
+  .card-evento p {
+    font-size: 15px;
+  }
+}
 
-    .card-evento p {
-        font-size: 15px;
-    }
+.imagem-evento {
+  width: 100%; /* Garante que a imagem não passe dos limites do card */
+  max-height: 250px;
+  object-fit: cover; /* Ou 'contain' se quiser mostrar ela inteira */
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #1a1a1a;
+  display: block;
+}
+
+.imagem-evento:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+.comentarios {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #444;
+  width: 100%;
+}
+
+.comentarios h3 {
+  margin-bottom: 15px;
+  color: #00ff88;
+  font-size: 20px;
+}
+
+.comentarios .comentario-item {
+  background-color: #3a334d;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.comentarios .comentario-item strong {
+  color: #00ff88;
+  font-size: 14px;
+}
+
+.comentarios .comentario-item small {
+  color: #aaa;
+  font-size: 12px;
+  display: block;
+  margin-top: 6px;
+}
+
+.comentario-form {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comentario-form textarea {
+  background-color: #2f2841;
+  border: 1px solid #555;
+  border-radius: 10px;
+  color: #fff;
+  padding: 12px;
+  resize: vertical;
+  font-size: 14px;
+  width: 100%;
+}
+
+.comentario-form button {
+  align-self: flex-end;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #00ff88;
+  color: #1e1a2d;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.comentario-form button:hover {
+  background-color: #10ab63;
+  transform: scale(1.05);
 }

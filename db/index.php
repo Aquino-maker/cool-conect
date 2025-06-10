@@ -33,6 +33,7 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS eventos (
     event_type ENUM('Presencial', 'Online', 'Híbrido') DEFAULT 'Presencial',
     capacity INT, 
     price DECIMAL(10,2) DEFAULT 0.00,
+    image_event VARCHAR(255), -- campo para o caminho da imagem
     status_event ENUM('Ativo', 'Cancelado', 'Encerrado') DEFAULT 'Ativo',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_org) REFERENCES organizadores(id_org) ON DELETE CASCADE
@@ -57,4 +58,4 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS comentarios (
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_user) REFERENCES usuarios(id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_event) REFERENCES eventos(id_event) ON DELETE CASCADE
-");
+)");

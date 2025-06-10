@@ -2,7 +2,6 @@
 session_start();
 include('/laragon/www/Preparacao-para-ADE/back-end/conexao.php');
 
-
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit;
@@ -32,15 +31,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $capacity = !empty($_POST['capacity']) ? (int)$_POST['capacity'] : null;
     $price = !empty($_POST['price']) ? (float)$_POST['price'] : 0.00;
 
-    if (empty($name_event) || empty($start_date_event)) {
-        echo "Por favor, preencha os campos obrigatórios: título e data de início.";
-        exit;
+    // Processar upload da imagem
+    $imagePath = null;
+
+    if (isset($_FILES['image_event']) && $_FILES['image_event']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '/laragon/www/Preparacao-para-ADE/uploads/';
+        $uploadWebPath = '/Preparacao-para-ADE/uploads/';
+
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $fileTmp = $_FILES['image_event']['tmp_name'];
+        $fileName = uniqid() . '-' . basename($_FILES['image_event']['name']);
+        $filePath = $uploadDir . $fileName;
+
+        if (move_uploaded_file($fileTmp, $filePath)) {
+            $imagePath = $uploadWebPath . $fileName;
+        } else {
+            echo "Erro ao salvar a imagem.";
+            exit;
+        }
     }
 
+    // Inserção no banco
     $sql = "INSERT INTO eventos 
-        (id_org, name_event, description_event, start_date_event, end_date, event_location, address_event, city, event_type, capacity, price)
+        (id_org, name_event, description_event, start_date_event, end_date, event_location, address_event, city, event_type, capacity, price, image_event)
         VALUES
-        (:id_org, :name_event, :description_event, :start_date_event, :end_date, :event_location, :address_event, :city, :event_type, :capacity, :price)";
+        (:id_org, :name_event, :description_event, :start_date_event, :end_date, :event_location, :address_event, :city, :event_type, :capacity, :price, :image_event)";
 
     $stmt = $pdo->prepare($sql);
     $result = $stmt->execute([
@@ -55,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':event_type' => $event_type,
         ':capacity' => $capacity,
         ':price' => $price,
+        ':image_event' => $imagePath
     ]);
 
     if ($result) {

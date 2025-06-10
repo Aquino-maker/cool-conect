@@ -15,12 +15,14 @@ if (!isset($_SESSION['usuario'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Criar Evento</title>
-    <link rel="stylesheet" href="src/criar-evento.css" />
+    <link rel="stylesheet" href="src/criar-evento.css"/>
 </head>
 
 <body>
     <h1>Criar Novo Evento</h1>
-    <form action="/Preparacao-para-ADE/back-end/salvar-evento.php" method="POST">
+
+    <!-- enctype necessário para envio de arquivos -->
+    <form action="/Preparacao-para-ADE/back-end/salvar-evento.php" method="POST" enctype="multipart/form-data">
 
         <label for="name_event">Título:</label><br />
         <input type="text" name="name_event" id="name_event" required /><br /><br />
@@ -55,6 +57,9 @@ if (!isset($_SESSION['usuario'])) {
 
         <label for="price">Preço (R$):</label><br />
         <input type="number" name="price" id="price" min="0" step="0.01" value="0.00" /><br /><br />
+
+        <label for="image_event">Imagem do Evento:</label><br />
+        <input type="file" name="image_event" id="image_event" accept="image/*" /><br /><br />
 
         <button type="submit">Criar Evento</button>
     </form>

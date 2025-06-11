@@ -24,42 +24,42 @@ if (!isset($_SESSION['usuario'])) {
     <!-- enctype necessário para envio de arquivos -->
     <form action="/Preparacao-para-ADE/back-end/salvar-evento.php" method="POST" enctype="multipart/form-data">
 
-        <label for="name_event">Título:</label><br />
-        <input type="text" name="name_event" id="name_event" required /><br /><br />
+        <label for="name_event">Título:</label>
+        <input type="text" name="name_event" id="name_event" required />
 
-        <label for="description_event">Descrição:</label><br />
-        <textarea name="description_event" id="description_event" rows="4" required></textarea><br /><br />
+        <label for="description_event">Descrição:</label>
+        <textarea name="description_event" id="description_event" rows="4" required></textarea>
 
-        <label for="start_date_event">Data e hora início:</label><br />
-        <input type="datetime-local" name="start_date_event" id="start_date_event" required /><br /><br />
+        <label for="start_date_event">Data e hora início:</label>
+        <input type="datetime-local" name="start_date_event" id="start_date_event" required />
 
-        <label for="end_date">Data e hora fim:</label><br />
-        <input type="datetime-local" name="end_date" id="end_date" /><br /><br />
+        <label for="end_date">Data e hora fim:</label>
+        <input type="datetime-local" name="end_date" id="end_date" />
 
-        <label for="event_location">Local do Evento:</label><br />
-        <input type="text" name="event_location" id="event_location" /><br /><br />
+        <label for="event_location">Local do Evento:</label>
+        <input type="text" name="event_location" id="event_location" />
 
-        <label for="address_event">Endereço:</label><br />
-        <input type="text" name="address_event" id="address_event" /><br /><br />
+        <label for="address_event">Endereço:</label>
+        <input type="text" name="address_event" id="address_event" />
 
-        <label for="city">Cidade:</label><br />
-        <input type="text" name="city" id="city" /><br /><br />
+        <label for="city">Cidade:</label>
+        <input type="text" name="city" id="city" />
 
-        <label for="event_type">Tipo de Evento:</label><br />
+        <label for="event_type">Tipo de Evento:</label>
         <select name="event_type" id="event_type">
             <option value="Presencial" selected>Presencial</option>
             <option value="Online">Online</option>
             <option value="Híbrido">Híbrido</option>
-        </select><br /><br />
+        </select>
 
-        <label for="capacity">Capacidade:</label><br />
-        <input type="number" name="capacity" id="capacity" min="1" /><br /><br />
+        <label for="capacity">Capacidade:</label>
+        <input type="number" name="capacity" id="capacity" min="1" />
 
         <label for="price">Preço (R$):</label><br />
-        <input type="number" name="price" id="price" min="0" step="0.01" value="0.00" /><br /><br />
+        <input type="number" name="price" id="price" min="0" step="0.01" value="0.00" />
 
-        <label for="image_event">Imagem do Evento:</label><br />
-        <input type="file" name="image_event" id="image_event" accept="image/*" /><br /><br />
+        <label for="image_event">Imagem do Evento:</label>
+        <input type="file" name="image_event" id="image_event" accept="image/*" />
 
         <button type="submit">Criar Evento</button>
     </form>
